@@ -1,0 +1,50 @@
+.singleChat {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px 10px 15px;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid black; */
+    /* overflow: ellipsis; */
+    word-wrap: break-word;
+}
+
+.unSelectedChatBox {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    font-style: italic;
+}
+
+.NavBar_Container {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.profile_Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+}
+
+.senderName {
+    text-align: center;
+    font-family: "Work Sans", sans-serif;
+    padding: 0 15px;
+    font-style: normal;
+}
+
+.Single_Chat_Container {
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 10px;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

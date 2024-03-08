@@ -1,0 +1,25 @@
+.userListContainer {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    font-size: 17px;
+    align-items: center;
+    justify-content: space-between;
+    text-align: start;
+}
+
+.selected {
+    background-color: #38B2AC;
+    color: white;
+}
+
+.not_selected {
+    background-color: #E8E8E8;
+    color: black;
+}
+
+.userListContainer:hover {
+    background-color: #38B2AC;
+    color: white;
+}

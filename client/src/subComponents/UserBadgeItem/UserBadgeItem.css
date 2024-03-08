@@ -1,0 +1,8 @@
+.user-badge-icon {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #38B2AC;
+    color: white;
+    cursor: pointer;
+    align-items: center;
+}

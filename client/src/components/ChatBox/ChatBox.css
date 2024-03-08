@@ -1,0 +1,21 @@
+.ChatBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 10px 15px; */
+    color: black;
+    background-color: #f0f0f0;
+    width: 100%;
+    text-align: left;
+    border: 1px solid black;
+    height: 85vh;
+    overflow: hidden;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.ChatBox.md {
+    /* Styles for medium screens (768px and above) */
+    width: 68%;
+    /* Adjust width for medium screens */
+}

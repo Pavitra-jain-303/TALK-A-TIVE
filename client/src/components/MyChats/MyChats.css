@@ -1,0 +1,32 @@
+.MyChats {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    padding: 1.5rem;
+    color: black;
+    background-color: #f0f0f0;
+    width: 100%;
+    border-radius: 0.75rem;
+    text-align: left;
+    border: 1px solid black;
+    height: 85vh;
+    overflow: hidden;
+}
+
+.Chat_heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.NewChat_btn {
+    margin: 0;
+    padding: 0;
+    justify-self: right;
+}
+
+.Chat_Container {
+    margin-top: 15px;
+    overflow-y: auto;
+}

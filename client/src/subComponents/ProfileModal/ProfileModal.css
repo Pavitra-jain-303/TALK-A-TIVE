@@ -1,0 +1,30 @@
+.modal {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Work sans', sans-serif;
+}
+
+.modal_header {
+    text-align: center;
+}
+
+.modal_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+}
+
+.body_message {
+    font-weight: 300;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 10rem;
+    margin: 2rem;
+    padding: 0.5rem;
+    /* Adjust this value as needed for spacing */
+}

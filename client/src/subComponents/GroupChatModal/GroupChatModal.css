@@ -1,0 +1,28 @@
+.modal {
+    font-family: 'Work sans', sans-serif;
+    overflow-y: scroll;
+}
+
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#contained-modal-title-vcenter strong h1 {
+    text-align: center !important;
+    /* Increase specificity and use !important */
+    margin: auto !important;
+    align-self: center !important;
+    justify-content: center !important;
+}
+
+.modal-body {
+    margin: 0 !important;
+}
+
+.search_form {
+    width: 90%;
+}
