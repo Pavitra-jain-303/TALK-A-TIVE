@@ -4,7 +4,7 @@ import Chat from '../models/chatModel.js';
 // import generateToken from '../config/generateToken.js';
 
 //description     Create or fetch One to One Chat
-//route           POST /api/chat/
+//route           POST /api/chats/
 //access          Protected
 const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
@@ -53,7 +53,7 @@ const accessChat = asyncHandler(async (req, res) => {
 });
 
 //description     Fetch all chats for a user
-//route           GET /api/chat/
+//route           GET /api/chats/
 //access          Protected
 const fetchChats = asyncHandler(async (req, res) => {
     try {
@@ -76,7 +76,7 @@ const fetchChats = asyncHandler(async (req, res) => {
 });
 
 //description     Create New Group Chat
-//route           POST /api/chat/group
+//route           POST /api/chats/group
 //access          Protected
 const createGroupChat = asyncHandler(async (req, res) => {
     if (!req.body.users || !req.body.name) {
@@ -113,7 +113,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
 });
 
 //desc    Rename Group
-//route   PUT /api/chat/rename
+//route   PUT /api/chats/rename
 //access  Protected
 const renameGroup = asyncHandler(async (req, res) => {
     const { chatId, chatName } = req.body;
@@ -139,7 +139,7 @@ const renameGroup = asyncHandler(async (req, res) => {
 });
 
 //desc    Remove user from Group
-//route   PUT /api/chat/groupremove
+//route   PUT /api/chats/remove
 //access  Protected
 const removeFromGroup = asyncHandler(async (req, res) => {
     const { chatId, userId } = req.body;
@@ -167,7 +167,7 @@ const removeFromGroup = asyncHandler(async (req, res) => {
 });
 
 //desc    Add user to Group / Leave
-//route   PUT /api/chat/groupadd
+//route   PUT /api/chats/add
 //access  Protected
 const addToGroup = asyncHandler(async (req, res) => {
     const { chatId, userId } = req.body;

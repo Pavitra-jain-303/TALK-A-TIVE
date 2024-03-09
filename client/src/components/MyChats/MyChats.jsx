@@ -10,11 +10,11 @@ import ChatLoading from '../miscellaneous/chatLoading';
 import './MyChats.css';
 import GroupChatModal from '../../subComponents/GroupChatModal/GroupChatModal';
 
-function MyChats({ fetchAgain }) {
+function MyChats() {
 
     const [loggedUser, setLoggedUser] = useState();
     const [modalShow, setModalShow] = useState(false);
-    const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(chatContext);
+    const { user, selectedChat, setSelectedChat, chats, setChats, fetchAgain } = useContext(chatContext);
     // console.log(selectedChat);
 
     const fetchChats = async () => {

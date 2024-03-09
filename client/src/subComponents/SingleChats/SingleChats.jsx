@@ -6,7 +6,8 @@ import { Row, Container, Navbar, Col } from 'react-bootstrap';
 import { getSenderFull } from '../../components/miscellaneous/ChatLogic';
 import UpdateGroupChatModal from '../UpdateGroupChatModal/UpdateGroupChatModal';
 
-export default function SingleChats(fetchAgain, setFetchAgain) {
+// export default function SingleChats(fetchAgain, setFetchAgain) {
+export default function SingleChats() {
 
     const { user, selectedChat } = useContext(chatContext);
     const [profileModalShow, setProfileModalShow] = useState(false);
@@ -44,7 +45,8 @@ export default function SingleChats(fetchAgain, setFetchAgain) {
 
                         <div className='Single_Chat_Container'>
                             {JSON.stringify(selectedChat)}
-                            {"\n**********************User******************\n"}
+                            {"\\n**********************User******************\\n\\n"}
+                            <hr />
                             {JSON.stringify(getSenderFull(user, selectedChat.users))}
                         </div>
 
@@ -59,8 +61,8 @@ export default function SingleChats(fetchAgain, setFetchAgain) {
                             show={chatModalShow}
                             onHide={() => setChatModalShow(false)}
                             // fetchMessages, fetchAgain, setFetchAgain
-                            fetchAgain={fetchAgain} 
-                            setfetchagain={setFetchAgain}
+                            // fetchAgain={fetchAgain} 
+                            // setfetchagain={setFetchAgain}
                         />}
 
                     </Container>

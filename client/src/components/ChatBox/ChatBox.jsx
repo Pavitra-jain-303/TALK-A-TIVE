@@ -12,7 +12,8 @@ function ChatBox({ fetchAgain, setFetchAgain }) {
     return (
         <>
             <div className="ChatBox">
-                <SingleChats fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+                {/* <SingleChats fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} /> */}
+                <SingleChats />
             </div>
         </>
     )

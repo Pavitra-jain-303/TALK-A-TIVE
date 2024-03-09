@@ -8,7 +8,7 @@ import chatContext from '../../Context/chatContext';
 import UserListItem from '../UserListItem/UserListItem';
 import UserBadgeIcon from '../UserBadgeItem/UserBadgeItem';
 
-function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
+function UpdateGroupChatModal(props) {
 
 
     // props : 
@@ -16,20 +16,55 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
     // onHide = {() => setChatModalShow(false)}
     // fetchAgain = { fetchAgain }
     // setFetchAgain = { setFetchAgain }
-    const { user, selectedChat, setSelectedChat } = useContext(chatContext);
+    const { user, selectedChat, setSelectedChat, fetchAgain, setFetchAgain } = useContext(chatContext);
 
 
     const [groupChatName, setGroupChatName] = useState(selectedChat.chatName);
-    // const [selectedUsers, setSelectedUsers] = useState([]);
-    // const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [renameLoading, setRenameLoading] = useState(false);
 
 
-    const handleRemove = () => { };
+    const handleSearch = async (query) => {
+        setSearch(query);
+        if (!query) {
+            return;
+        }
 
-    const handleRename = async () => {
+        try {
+            if (search.length > 0) {
+                // console.log(search);
+
+                setLoading(true);
+
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
+
+                const { data } = await axios.get(`/api/user?search=${search}`, config);
+                // console.log(data);
+                // console.log(`${search} : ${data}`);
+
+                setLoading(false);
+                setSearchResult(data);
+            }
+        } catch (error) {
+            toast.warn("Search Error : Error Occured! Failed to Load the Search Results", {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            setLoading(false);
+        }
+    };
+
+
+    const handleRename = async (e) => {
+        e.preventDefault();
         if (!groupChatName)
             return;
 
@@ -60,33 +95,143 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
             });
 
             setSelectedChat(data);
-            // props.setFetchAgain(!(props.fetchAgain));
-            // console.log(props.fetchAgain);
-            setfetchagain(!fetchAgain);
+            setFetchAgain(!fetchAgain);
             setRenameLoading(false);
-
+            // props.show();
         } catch (error) {
-            console.log(`error for handleRename:\n${error}`);
+            // console.log(`error for handleRename:\n${error}`);
             toast.error("Failed to change name", {
                 position: "top-center",
                 hideProgressBar: true,
                 closeOnClick: true,
                 theme: "light",
             });
+            setRenameLoading(false);
         }
 
         setGroupChatName("");
     };
 
-    const handleSearch = () => { };
+    const handleRemove = async (selected_user) => {
+
+        if (selectedChat.groupAdmin._id !== user._id && user._id !== selected_user._id) {
+            toast.error("Only admins can remove someone", {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.put(
+                "/api/chats/remove",
+                {
+                    chatId: selectedChat._id,
+                    userId: selected_user._id,
+                },
+                config,
+            );
+
+            toast.info(`${selected_user.name} removed`, {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+
+            selected_user._id === user._id ? setSelectedChat() : setSelectedChat(data);
+            setFetchAgain(!fetchAgain);
+            setLoading(false);
+        } catch (error) {
+            console.log(`Removing user error\n${error}`);
+            toast.error("Error Removing user from group", {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            setLoading(false);
+        }
+    };
+
+    const handleAddUser = async (selected_user) => {
+        if (selectedChat.users.find((u) => u._id === selected_user._id)) {
+            toast.error(`${selected_user.name} is already in the group`, {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            return;
+        }
+
+        if (selectedChat.groupAdmin._id !== user._id) {
+            toast.error("Only admins can add user to group", {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.put(
+                "/api/chats/add",
+                {
+                    chatId: selectedChat._id,
+                    userId: selected_user._id,
+                },
+                config
+            );
+
+            toast.success(`${selected_user.name} added to ${selectedChat.chatName}`, {
+                position: "top-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+
+            setSelectedChat(data);
+            setFetchAgain(!fetchAgain);
+            setLoading(false);
+        } catch (error) {
+            console.log(`Adding user error\n${error}`);
+            toast.error("Error adding new user to group", {
+                position: "bottom-center",
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: "light",
+            });
+            setLoading(false);
+        }
+    };
+
+
+
 
     return (
         <div>
             <Modal
-                show 
-                onHide
-                fetchAgain
-                setFetchAgain
+                {...props}
                 size="md"
                 // aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -95,12 +240,12 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
             >
                 <Modal.Header closeButton className='modal_header'>
                     <Modal.Title id="contained-modal-title-vcenter" >
-                        <strong><h1>Update {selectedChat.chatName}</h1></strong>
+                        <strong><h1>Update {selectedChat.chatName} by {selectedChat.groupAdmin.name}</h1></strong>
                     </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className="modal_body">
-                    <Form className='search_form'>
+                    <Form className="search_form">
 
                         <InputGroup className="mb-3 xs-12 d-flex" >
 
@@ -108,16 +253,31 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
                                 type="text"
                                 placeholder="Chat Name"
                                 value={groupChatName}
-                                autoFocus
                                 aria-describedby="basic-addon2"
                                 onChange={(e) => setGroupChatName(e.target.value)}
                             />
                             <Button
                                 variant="outline-secondary"
                                 id="button-addon2"
-                                onClick={() => { handleRename() }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleRename(e);
+                                }}
                             >
-                                Button
+                                {
+                                    renameLoading ? (
+                                        <>
+                                            <Spinner
+                                                as="span"
+                                                animation="grow"
+                                                size="sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            />
+                                            Loading...
+                                        </>
+                                    ) : "Rename"
+                                }
                             </Button>
 
                         </InputGroup>
@@ -129,12 +289,6 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
                                 placeholder="Add Users eg: John, Piyush, Jane"
                                 onChange={(e) => { handleSearch(e.target.value) }}
                             />
-                            <Button
-                                variant="outline-secondary"
-                                id="button-addon2"
-                            >
-                                Button
-                            </Button>
 
                         </InputGroup>
 
@@ -144,7 +298,7 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
                                     key={u._id}
                                     user={u}
                                     admin={selectedChat.groupAdmin}
-                                    handleFunction={() => handleRemove(u)}
+                                    handleDelete={() => { handleRemove(u) }}
                                 />
                             ))}
                         </div>
@@ -159,7 +313,7 @@ function UpdateGroupChatModal(show, onHide, fetchAgain, setfetchagain) {
                                     <UserListItem
                                         key={user._id}
                                         user={user}
-                                        // handleFunction={() => handleGroup(user)}
+                                        handleFunction={() => handleAddUser(user)}
                                         isSelected={false}
                                     />
                                 ))
