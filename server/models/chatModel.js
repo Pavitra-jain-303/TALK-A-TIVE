@@ -1,7 +1,8 @@
 // import { model, Schema } from "mongoose";
 import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const chatModel = mongoose.Schema({
+const chatSchema = Schema({
     chatName: {
         type: String,
         trim: true
@@ -31,4 +32,4 @@ const chatModel = mongoose.Schema({
 )
 
 // module.exports = mongoose.model("Chat", chatModel);
-export default mongoose.model("Chat", chatModel);
+export default model("Chat", chatSchema);

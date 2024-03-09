@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import Message from "../models/messageModel.js";
+import Messages from "../models/messageModel.js";
 import User from "../models/userModel.js";
 import Chat from "../models/chatModel.js";
 
@@ -8,7 +8,7 @@ import Chat from "../models/chatModel.js";
 //@access          Protected
 const allMessages = asyncHandler(async (req, res) => {
     try {
-        const messages = await Message.find({ chat: req.params.chatId })
+        const messages = await Messages.find({ chat: req.params.chatId })
             .populate("sender", "name pic email")
             .populate("chat");
         res.json(messages);
@@ -29,17 +29,17 @@ const sendMessage = asyncHandler(async (req, res) => {
         return res.sendStatus(400);
     }
 
-    var newMessage = {
+    let newMessage = {
         sender: req.user._id,
         content: content,
         chat: chatId,
     };
 
     try {
-        var message = await Message.create(newMessage);
+        let message = await Messages.create(newMessage);
 
-        message = await message.populate("sender", "name pic").execPopulate();
-        message = await message.populate("chat").execPopulate();
+        message = await message.populate("sender", "name pic");
+        message = await message.populate("chat");
         message = await User.populate(message, {
             path: "chat.users",
             select: "name pic email",
