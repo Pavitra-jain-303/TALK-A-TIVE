@@ -1,6 +1,6 @@
 import express from 'express';
-import path from 'path';
 import { Server } from "socket.io";
+import cors from 'cors';
 
 import userRoutes from './routes/userRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
@@ -26,20 +26,17 @@ app.use('/api/message', messageRoutes);
 
 // ------------------------Deployement-------------------------------------
 
-const __dirname1 = path.resolve();
+const corsOptions = {
+    origin: process.env.client_Uri,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Include cookies and HTTP authentication headers '', 
+};
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname1, "/client/build")));
+app.use(cors(corsOptions));
 
-    app.get("*", (req, res) =>
-        res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"))
-    );
-} else {
-    app.get("/", (req, res) => {
-        res.send("API is running..");
-    });
-}
-
+app.get("/", (req, res) => {
+    res.send("API is running..");
+});
 
 // ------------------------Deployement-------------------------------------
 
@@ -57,7 +54,7 @@ const server = app.listen(PORT, () => {
 const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.client_Uri,
         // credentials: true,
     },
 });
