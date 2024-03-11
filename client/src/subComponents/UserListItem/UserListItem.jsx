@@ -1,4 +1,3 @@
-import react from 'react';
 import { CloseButton, ListGroup } from 'react-bootstrap';
 import './UserListItem.css'
 

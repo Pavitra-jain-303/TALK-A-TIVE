@@ -36,7 +36,7 @@ function ProfileModal(props) {
                     <h4 className="lead body_message" >Email: {props.user.email}</h4>
                 </Modal.Body>
                 <Modal.Footer>
-                    {(user._id == props.user._id) && <Button onClick={() => { logOutHandler() }}>Log Out</Button>}
+                    {(user._id === props.user._id) && <Button onClick={() => { logOutHandler() }}>Log Out</Button>}
                     <Button onClick={props.onHide}>Close</Button>
                 </Modal.Footer>
 

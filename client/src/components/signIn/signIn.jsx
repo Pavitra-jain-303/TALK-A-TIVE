@@ -43,7 +43,7 @@ export default function SignIn() {
                 },
                 config
             );
-            console.log(data);
+            // console.log(data);
             toast.success('Login Successful', {
                 position: "bottom-center",
                 hideProgressBar: true,

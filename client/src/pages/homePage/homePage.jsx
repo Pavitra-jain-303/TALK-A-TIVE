@@ -25,11 +25,11 @@ function HomePage() {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         setUser(userInfo);
 
-        if (userInfo) {
+        if (user) {
             navigate('/chats');
         }
 
-    }, [navigate]);
+    }, [user, navigate]);
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);

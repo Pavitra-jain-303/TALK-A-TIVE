@@ -15,10 +15,10 @@ function GroupChatModal(props) {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(chatContext);
+    const { user, chats, setChats } = useContext(chatContext);
 
     const handleSubmit = async () => {
-        
+
         if (!groupChatName) {
             toast.warn("Please enter a group chat name", {
                 position: "bottom-center",
@@ -55,18 +55,18 @@ function GroupChatModal(props) {
                 },
                 config
             );
-            console.log(data);
+            // console.log(data);
 
-            setChats([data,...chats]);
+            setChats([data, ...chats]);
             setLoading(false);
-            
+
             toast.success("Chat created success fully", {
                 position: "top-center",
                 hideProgressBar: true,
                 closeOnClick: true,
                 theme: "light",
             });
-            
+
             props.onHide();
 
         } catch (error) {
@@ -107,7 +107,7 @@ function GroupChatModal(props) {
 
         try {
             if (search.length > 0) {
-                console.log(search);
+                // console.log(search);
 
                 setLoading(true);
 
@@ -118,7 +118,7 @@ function GroupChatModal(props) {
                 };
 
                 const { data } = await axios.get(`/api/user?search=${search}`, config);
-                console.log(data);
+                // console.log(data);
                 // console.log(`${search} : ${data}`);
 
                 setLoading(false);
@@ -178,38 +178,6 @@ function GroupChatModal(props) {
                         <div className="d-flex flex-wrap my-3">
                             {selectedUsers &&
                                 selectedUsers.map((user) => (
-                                    // <ListGroup.Item
-                                    //     key={u._id}
-                                    //     // user={u}
-                                    //     // handleFunction={() => handleDelete(u)}
-                                    //     onClick={(e) => (e.preventDefault())}
-                                    //     style={{
-                                    //         // backgroundColor: "#d1d1d1", //"#38B2AC" 
-                                    //         // color: "black", //"white" :
-                                    //         cursor: "pointer",
-                                    //         padding: "10px",
-                                    //         borderRadius: "2px",
-                                    //         marginBottom: "5px",
-                                    //         textAlign: "left",
-                                    //         fontSize: "15px"
-                                    //     }}
-                                    //     action variant="dark"
-                                    //     as="li"
-                                    //     className="d-flex justify-content-between align-items-start"
-                                    // >
-                                    //     <div className="ms-2 me-auto fw-bold">
-                                    //         {u.name}
-                                    //     </div>
-                                    //     <CloseButton/>
-
-                                    // </ ListGroup.Item>
-                                    // <UserListItem
-                                    //     key={user._id}
-                                    //     user={user}
-                                    //     handleFunction={() => (console.log("exit"))}
-                                    //     isSelected={true}
-                                    // />
-
                                     <UserBadgeIcon
                                         key={user._id}
                                         user={user}

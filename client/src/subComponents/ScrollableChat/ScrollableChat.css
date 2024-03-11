@@ -1,0 +1,4 @@
+.message_container {
+    overflow-y: scroll;
+    scrollbar-width: none;
+}

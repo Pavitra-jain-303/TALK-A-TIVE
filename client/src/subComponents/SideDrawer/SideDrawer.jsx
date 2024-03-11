@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { Dropdown, Tooltip, OverlayTrigger, Button, Offcanvas, Form, InputGroup, ListGroup } from 'react-bootstrap';
+import { Dropdown, Tooltip, OverlayTrigger, Button, Offcanvas, Form, InputGroup } from 'react-bootstrap';
 
 
 import chatContext from '../../Context/chatContext.js';
@@ -11,6 +11,7 @@ import ProfileModal from '../ProfileModal/ProfileModal.jsx';
 import './SideDrawer.css';
 import ChatLoading from '../../components/miscellaneous/chatLoading.jsx';
 import UserListItem from '../UserListItem/UserListItem.jsx';
+import { getSender } from '../../components/miscellaneous/ChatLogic.js';
 
 function SideDrawer() {
 
@@ -20,7 +21,7 @@ function SideDrawer() {
     const [loadingChats, setLoadingChats] = useState();
     const [modalShow, setModalShow] = useState(false);
 
-    const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(chatContext);
+    const { user, setSelectedChat, chats, setChats, notification, setNotification } = useContext(chatContext);
     const navigate = useNavigate();
 
 
@@ -30,7 +31,7 @@ function SideDrawer() {
     const handleShow = () => setShow(true); // used to handle offcanvas
 
     const logOutHandler = () => {
-        console.log('Log Out');
+        // console.log('Log Out');
         localStorage.removeItem('userInfo');
         navigate('/');
     }
@@ -154,20 +155,44 @@ function SideDrawer() {
                     </div>
 
                     <div className="col-3 notification">
-                        <Dropdown className="d-inline mx-0" data-bs-theme="dark">
+                        <Dropdown className="d-inline mx-0" data-bs-theme="light">
                             <Dropdown.Toggle id="dropdown-autoclose-true" variant="outline-light" style={{ border: "none", color: "inherit" }}>
                                 <i className="bi bi-bell-fill" style={{ fontSize: "1.3rem" }}></i>
+                                {notification.length > 0 && (
+                                    <div className="notification-badge">
+                                        <span className="badge">
+                                            {notification.length}
+                                        </span>
+                                    </div>
+                                )}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                                <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                                <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                                {/* */}
+                                {
+                                    !notification.length &&
+                                    <Dropdown.Item>No New Messages</Dropdown.Item>
+                                }
+                                {
+                                    notification.map((notif) => (
+                                        <Dropdown.Item
+                                            key={notif._id}
+                                            onClick={() => {
+                                                setSelectedChat(notif.chat);
+                                                setNotification(notification.filter((n) => n !== notif));
+                                            }}
+                                        >
+                                            {notif.chat.isGroupChat
+                                                ? `New Message in ${notif.chat.chatName}`
+                                                : `New Message from ${getSender(user, notif.chat.users)}`}
+                                        </Dropdown.Item>
+                                    ))
+                                }
                             </Dropdown.Menu>
                         </Dropdown>
 
 
-                        <Dropdown className="d-inline mx-0" data-bs-theme="dark" style={{ cursor: "pointer" }}>
+                        <Dropdown className="d-inline mx-0" data-bs-theme="light" style={{ cursor: "pointer" }}>
                             <Dropdown.Toggle id="dropdown-autoclose-true" variant="outline-light" style={{ border: "none", color: "inherit" }}>
                                 <img src={user.pic} alt={user.name} style={{ borderRadius: "100%", height: "2rem" }} />
                             </Dropdown.Toggle>

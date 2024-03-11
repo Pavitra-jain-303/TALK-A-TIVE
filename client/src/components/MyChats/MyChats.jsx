@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 

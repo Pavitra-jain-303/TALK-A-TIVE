@@ -95,6 +95,7 @@ function UpdateGroupChatModal(props) {
             });
 
             setSelectedChat(data);
+            props.fetch_messages();
             setFetchAgain(!fetchAgain);
             setRenameLoading(false);
             // props.show();
