@@ -11,7 +11,8 @@ import { getSenderFull } from '../../components/miscellaneous/ChatLogic';
 import UpdateGroupChatModal from '../UpdateGroupChatModal/UpdateGroupChatModal';
 import ScrollableChat from '../ScrollableChat/ScrollableChat';
 
-const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
+// const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
+const ENDPOINT = "https://talk-a-tive-fnk0.onrender.com";
 let socket, selectedChatCompare;
 
 // export default function SingleChats(fetchAgain, setFetchAgain) {
@@ -121,13 +122,14 @@ export default function SingleChats() {
     }
 
     useEffect(() => {
+        // eslint-disable-next-line
+        
         socket = io(ENDPOINT);
         socket.emit("setup", user);
         socket.on("connected", () => setSocketConnected(true));
         socket.on("typing", () => setIsTyping(true));
         socket.on("stop typing", () => setIsTyping(false));
 
-        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {

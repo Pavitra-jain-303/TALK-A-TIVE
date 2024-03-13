@@ -46,5 +46,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://localhost:5000"
+    "proxy" : "https://talk-a-tive-fnk0.onrender.com"
 }
