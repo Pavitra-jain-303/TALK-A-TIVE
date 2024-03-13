@@ -53,10 +53,10 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
     pingTimeout: 60000,
-    cors: {
-        origin: process.env.client_Uri,
-        // credentials: true,
-    },
+    // cors: {
+    //     origin: process.env.client_Uri,
+    //     // credentials: true,
+    // },
 });
 
 io.on("connection", (socket) => {
