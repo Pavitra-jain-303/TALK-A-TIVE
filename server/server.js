@@ -24,13 +24,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/message', messageRoutes);
 
-// ------------------------Deployment-------------------------------------
-
-app.options('*', cors());
-// Allow all origins
-
-// ------------------------Deployment-------------------------------------
-
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
@@ -41,11 +34,11 @@ const server = app.listen(PORT, () => {
 });
 
 const io = new Server(server, {
-    pingTimeout: 60000,
-    // cors: {
-    //     origin: process.env.client_Uri,
-    //     // credentials: true,
-    // },
+    cors: {
+        origin: "*", // Allow requests from any origin, replace "*" with your frontend domain in production
+        methods: "*" // Allow all HTTP methods
+    },
+    pingTimeout: 60000
 });
 
 io.on("connection", (socket) => {
