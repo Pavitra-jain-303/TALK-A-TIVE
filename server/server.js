@@ -5,7 +5,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
 import messageRoutes from './routes/messageRoutes.js'
-import {notFound, errorHandler} from './middleware/errorMiddleware.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import { config as configDotenv } from 'dotenv';
 configDotenv();
@@ -24,22 +24,11 @@ app.use('/api/user', userRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/message', messageRoutes);
 
-// ------------------------Deployement-------------------------------------
+// ------------------------Deployment-------------------------------------
 
-const corsOptions = {
-    origin: process.env.client_Uri,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Include cookies and HTTP authentication headers '', 
-};
+app.use(cors()); // Allow all origins
 
-app.use(cors(corsOptions));
-
-app.get("/", (req, res) => {
-    res.send("API is running..");
-});
-
-// ------------------------Deployement-------------------------------------
-
+// ------------------------Deployment-------------------------------------
 
 // Error Handling middlewares
 app.use(notFound);
@@ -48,7 +37,6 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5005;
 const server = app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
-
 });
 
 const io = new Server(server, {
@@ -89,5 +77,4 @@ io.on("connection", (socket) => {
         console.log("USER DISCONNECTED");
         socket.leave(userData._id);
     });
-
-})
+});
