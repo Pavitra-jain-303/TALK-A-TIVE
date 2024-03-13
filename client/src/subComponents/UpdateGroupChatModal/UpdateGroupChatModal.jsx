@@ -7,6 +7,7 @@ import axios from 'axios';
 import chatContext from '../../Context/chatContext';
 import UserListItem from '../UserListItem/UserListItem';
 import UserBadgeIcon from '../UserBadgeItem/UserBadgeItem';
+import { api_Url } from '../../apiLink';
 
 function UpdateGroupChatModal(props) {
 
@@ -44,7 +45,7 @@ function UpdateGroupChatModal(props) {
                     },
                 };
 
-                const { data } = await axios.get(`/api/user?search=${search}`, config);
+                const { data } = await axios.get(`${api_Url}/api/user?search=${search}`, config);
                 // console.log(data);
                 // console.log(`${search} : ${data}`);
 
@@ -78,7 +79,7 @@ function UpdateGroupChatModal(props) {
             };
 
             const { data } = axios.put(
-                "api/chats/rename",
+                `${api_Url}api/chats/rename`,
                 {
                     chatId: selectedChat._id,
                     chatName: groupChatName,
@@ -135,7 +136,7 @@ function UpdateGroupChatModal(props) {
             };
 
             const { data } = await axios.put(
-                "/api/chats/remove",
+                `${api_Url}/api/chats/remove`,
                 {
                     chatId: selectedChat._id,
                     userId: selected_user._id,
@@ -196,7 +197,7 @@ function UpdateGroupChatModal(props) {
             };
 
             const { data } = await axios.put(
-                "/api/chats/add",
+                `${api_Url}/api/chats/add`,
                 {
                     chatId: selectedChat._id,
                     userId: selected_user._id,

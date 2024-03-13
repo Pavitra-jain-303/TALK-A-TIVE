@@ -45,6 +45,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "proxy" : "https://talk-a-tive-fnk0.onrender.com"
+    }
 }

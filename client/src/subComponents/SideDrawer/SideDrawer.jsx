@@ -12,6 +12,7 @@ import './SideDrawer.css';
 import ChatLoading from '../../components/miscellaneous/chatLoading.jsx';
 import UserListItem from '../UserListItem/UserListItem.jsx';
 import { getSender } from '../../components/miscellaneous/ChatLogic.js';
+import { api_Url } from '../../apiLink.js';
 
 function SideDrawer() {
 
@@ -47,7 +48,7 @@ function SideDrawer() {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const { data } = await axios.post(`/api/chats`, { userId }, config);
+            const { data } = await axios.post(`${api_Url}/api/chats`, { userId }, config);
             // console.log(data);
             if (!chats.find((c) => c._id === data._id)) {
                 setChats([data, ...chats]);
@@ -102,7 +103,7 @@ function SideDrawer() {
                 },
             };
 
-            const { data } = await axios.get(`/api/user?search=${search}`, config);
+            const { data } = await axios.get(`${api_Url}/api/user?search=${search}`, config);
             // console.log(data);
             if (data.length === 0) {
                 toast.error('User not found', {

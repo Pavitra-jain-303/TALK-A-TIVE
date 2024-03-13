@@ -7,6 +7,7 @@ import './GroupChatModal.css'
 import chatContext from '../../Context/chatContext';
 import UserListItem from '../UserListItem/UserListItem';
 import UserBadgeIcon from '../UserBadgeItem/UserBadgeItem';
+import { api_Url } from '../../apiLink';
 
 function GroupChatModal(props) {
     const [groupChatName, setGroupChatName] = useState();
@@ -48,7 +49,7 @@ function GroupChatModal(props) {
             };
 
             const { data } = await axios.post(
-                "/api/chats/group",
+                `${api_Url}/api/chats/group`,
                 {
                     name: groupChatName,
                     users: JSON.stringify(selectedUsers.map((u) => u._id)),
