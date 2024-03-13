@@ -26,7 +26,8 @@ app.use('/api/message', messageRoutes);
 
 // ------------------------Deployment-------------------------------------
 
-app.use(cors()); // Allow all origins
+app.options('*', cors());
+// Allow all origins
 
 // ------------------------Deployment-------------------------------------
 
