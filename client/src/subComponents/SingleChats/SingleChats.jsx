@@ -13,7 +13,7 @@ import ScrollableChat from '../ScrollableChat/ScrollableChat';
  
 
 // const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
-const ENDPOINT = "https://talk-a-tive-1.onrender.com";
+const ENDPOINT = "https://talk-a-tive-eitc.onrender.com";
 let socket, selectedChatCompare;
 
 // export default function SingleChats(fetchAgain, setFetchAgain) {

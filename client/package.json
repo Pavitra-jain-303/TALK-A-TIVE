@@ -1,7 +1,7 @@
 {
     "name": "client",
     "version": "0.1.0",
-    "proxy":"https://talk-a-tive-1.onrender.com",
+    "proxy":"https://talk-a-tive-eitc.onrender.com",
     "private": true,
     "dependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
