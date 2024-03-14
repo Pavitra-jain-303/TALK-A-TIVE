@@ -234,20 +234,6 @@ function SideDrawer() {
                             :
                             (
                                 searchResult?.map(user => (
-                                    // <ListGroup as="ul">
-                                    //     <ListGroup.Item
-                                    //         as="li"
-                                    //         className="d-flex justify-content-between align-items-start"
-                                    //         key={user._id}
-                                    //         onClick={() => accessChat(user._id)}
-                                    //     >
-                                    //         <img src={user.pic} alt={user.name} style={{ borderRadius: "100%", height: "2rem" }} />
-                                    //         <div className="ms-2 me-auto">
-                                    //             <div className="fw-bold">{user.name}</div>
-                                    //             {user.email}
-                                    //         </div>
-                                    //     </ListGroup.Item>
-                                    // </ListGroup>
 
                                     <UserListItem
                                         key={user._id}

@@ -12,7 +12,8 @@ import UpdateGroupChatModal from '../UpdateGroupChatModal/UpdateGroupChatModal';
 import ScrollableChat from '../ScrollableChat/ScrollableChat';
  
 
-const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
+// const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
+const ENDPOINT = "https://talk-a-tive-1.onrender.com";
 let socket, selectedChatCompare;
 
 // export default function SingleChats(fetchAgain, setFetchAgain) {
