@@ -1,1 +1,0 @@
-export const api_Url = "https://talk-a-tive-fnk0.onrender.com";

@@ -10,9 +10,9 @@ import ProfileModal from '../ProfileModal/ProfileModal';
 import { getSenderFull } from '../../components/miscellaneous/ChatLogic';
 import UpdateGroupChatModal from '../UpdateGroupChatModal/UpdateGroupChatModal';
 import ScrollableChat from '../ScrollableChat/ScrollableChat';
-import { api_Url } from '../../apiLink';
+ 
 
-// const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
+const ENDPOINT = "http://localhost:5000"; // ; -> Before deployment
 let socket, selectedChatCompare;
 
 // export default function SingleChats(fetchAgain, setFetchAgain) {
@@ -43,7 +43,7 @@ export default function SingleChats() {
 
             setLoading(true);
             const { data } = await axios.get(
-                `${api_Url}/api/message/${selectedChat._id}`,
+                `/api/message/${selectedChat._id}`,
                 config,
             );
 
@@ -76,7 +76,7 @@ export default function SingleChats() {
 
                 setNewMessage(''); // Clear input after Enter
                 const { data } = await axios.post(
-                    `${api_Url}/api/message`,
+                    `/api/message`,
                     {
                         content: newMessage,
                         chatId: selectedChat._id
@@ -124,7 +124,7 @@ export default function SingleChats() {
     useEffect(() => {
         // eslint-disable-next-line
         
-        socket = io(api_Url);
+        socket = io(ENDPOINT);
         socket.emit("setup", user);
         socket.on("connected", () => setSocketConnected(true));
         socket.on("typing", () => setIsTyping(true));

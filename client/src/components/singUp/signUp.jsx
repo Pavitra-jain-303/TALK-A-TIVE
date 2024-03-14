@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import { api_Url } from '../../apiLink';
+ 
 
 export default function SignUp() {
 
@@ -53,7 +53,7 @@ export default function SignUp() {
                 },
             };
             const { data } = await axios.post(
-                `${api_Url}/api/user/register`,
+                `/api/user/register`,
                 {
                     name,
                     email,

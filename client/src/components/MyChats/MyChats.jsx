@@ -9,7 +9,7 @@ import chatContext from '../../Context/chatContext';
 import ChatLoading from '../miscellaneous/chatLoading';
 import './MyChats.css';
 import GroupChatModal from '../../subComponents/GroupChatModal/GroupChatModal';
-import { api_Url } from '../../apiLink';
+ 
 
 function MyChats() {
 
@@ -27,7 +27,7 @@ function MyChats() {
                 },
             };
 
-            const { data } = await axios.get(`${api_Url}/api/chats`, config);
+            const { data } = await axios.get(`/api/chats`, config);
             // console.log(data);
             setChats(data);
         } catch (error) {

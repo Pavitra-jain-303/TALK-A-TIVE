@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 
-import { api_Url } from '../../apiLink';
+ 
 
 export default function SignIn() {
     const [email, setEmail] = useState('');
@@ -38,7 +38,7 @@ export default function SignIn() {
                 },
             };
             const { data } = await axios.post(
-                `${api_Url}/api/user/login`,
+                `/api/user/login`,
                 {
                     email,
                     password

@@ -2,10 +2,16 @@ import mongoose from 'mongoose';
 
 const connectDB = async() => {
     try {
+        // console.log("MongoDB URI:", "mongodb+srv://skywalker303:23OS6QgPcwNBQ6yY@firstcluster.1cld9i7.mongodb.net/?retryWrites=true&w=majority");
+
+        // const conn = await mongoose.connect("mongodb+srv://skywalker303:23OS6QgPcwNBQ6yY@firstcluster.1cld9i7.mongodb.net/?retryWrites=true&w=majority");
+        console.log("MongoDB URI:", process.env.Mongo_Uri);
+
         const conn = await mongoose.connect(process.env.Mongo_Uri);
         console.log(`MongoDB connected ${conn.connections[0].host}`);
     } catch (error) {
-        console.error(`Error: ${error.message}`.red.bold);
+        console.log(error);
+        // console.error(`Error: ${error.message}`.red);
         process.exit(1); // Exit with a non-zero status code to indicate an error
     }
 
